@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCalc - Carbon Footprint Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Check session login status before displaying page to avoid flash of content
+        if (sessionStorage.getItem('logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        <header class="header">
+            <h1>EcoCalc</h1>
+            <p>Calculate your annual carbon footprint and take a step towards a greener future.</p>
+            <div style="margin-top: 1rem; display: flex; justify-content: center; align-items: center; gap: 1rem;">
+                <span id="user-greeting" style="font-weight: 600; color: #cbd5e1; font-size: 1rem;"></span>
+                <a href="#" id="logout-btn" style="color: var(--primary); text-decoration: none; font-size: 0.9rem; border: 1px solid var(--primary); padding: 0.3rem 0.8rem; border-radius: 5px; transition: all 0.3s ease;">Logout</a>
+            </div>
+        </header>
+
+        <div class="glass-card calculator-section">
+            <form id="calculator-form">
+                
+                <section class="form-group">
+                    <h2><span class="icon">🚗</span> Transportation (Monthly)</h2>
+                    <div class="input-grid">
+                        <div class="input-field">
+                            <label for="carKm">Car km</label>
+                            <input type="number" id="carKm" name="carKm" min="0" placeholder="e.g. 800">
+                        </div>
+                        <div class="input-field">
+                            <label for="busKm">Bus km</label>
+                            <input type="number" id="busKm" name="busKm" min="0" placeholder="e.g. 80">
+                        </div>
+                        <div class="input-field">
+                            <label for="flightKm">Flight km</label>
+                            <input type="number" id="flightKm" name="flightKm" min="0" placeholder="e.g. 160">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-group">
+                    <h2><span class="icon">⚡</span> Energy (Monthly)</h2>
+                    <div class="input-grid">
+                        <div class="input-field full-width">
+                            <label for="electricity">Electricity (kWh)</label>
+                            <input type="number" id="electricity" name="electricity" min="0" placeholder="e.g. 300">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-group">
+                    <h2><span class="icon">🥗</span> Diet</h2>
+                    <div class="input-grid">
+                        <div class="input-field full-width">
+                            <label for="dietType">Diet Type</label>
+                            <select id="dietType" name="dietType">
+                                <option value="average">Average</option>
+                                <option value="meat-heavy">Meat Heavy</option>
+                                <option value="vegetarian">Vegetarian</option>
+                                <option value="vegan">Vegan</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dynamic Calculation Error Message Banner -->
+                <div id="calc-error-box" class="error-message hidden" style="color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.75rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center; font-size: 0.95rem;"></div>
+
+                <button type="submit" class="submit-btn" id="calculate-btn">Calculate Footprint</button>
+            </form>
+        </div>
+
+        <div class="glass-card results-section hidden" id="results-section">
+            <h2>Your Annual Footprint</h2>
+            <div class="total-score">
+                <span id="total-co2">0</span> <span class="unit">kg CO₂</span>
+            </div>
+            
+            <div class="breakdown">
+                <div class="breakdown-item">
+                    <span class="label">Transportation</span>
+                    <span class="value" id="res-transport">0 kg</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="label">Energy</span>
+                    <span class="value" id="res-energy">0 kg</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="label">Diet</span>
+                    <span class="value" id="res-diet">0 kg</span>
+                </div>
+            </div>
+
+            <!-- Ecological Safety Indicator Card -->
+            <div class="safety-card" id="safety-card" style="margin: 1.8rem 0; padding: 1.5rem; border-radius: 12px; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.05); text-align: left; transition: all 0.5s ease;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+                    <span style="font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Ecological Safety Rating</span>
+                    <span id="safety-badge" style="padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">Sustainable</span>
+                </div>
+                <div style="font-size: 1.4rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <span id="safety-icon">🌱</span> <span id="safety-level-title">Highly Sustainable</span>
+                </div>
+                <p id="safety-desc" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; margin: 0 0 1.2rem 0;"></p>
+                
+                <!-- Safety progress visual bar -->
+                <div class="safety-bar-bg" style="background: rgba(255, 255, 255, 0.1); height: 10px; border-radius: 5px; position: relative; overflow: hidden; margin-bottom: 0.4rem;">
+                    <div id="safety-bar" style="height: 100%; width: 12%; background: #10b981; border-radius: 5px; transition: width 1.2s cubic-bezier(0.1, 0.8, 0.3, 1), background-color 0.8s ease;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #64748b; font-weight: 600;">
+                    <span>Sustainable (&lt;2k)</span>
+                    <span>Moderate (2k-8k)</span>
+                    <span>High (8k-16k)</span>
+                    <span>Critical (&gt;16k)</span>
+                </div>
+            </div>
+            
+            <button class="reset-btn" id="reset-btn">Recalculate</button>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+</body>
+</html>
