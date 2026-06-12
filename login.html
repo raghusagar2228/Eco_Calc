@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCalc - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 5vh;
+        }
+        .error-message {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container login-container">
+        <div class="glass-card">
+            <header class="header" style="margin-bottom: 1.5rem;">
+                <h1 style="font-size: 2.5rem;">EcoCalc</h1>
+                <p>Login to save credentials, or browse as a guest</p>
+            </header>
+
+            <div id="error-box" class="error-message hidden"></div>
+
+            <form id="login-form">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <div class="input-field">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required placeholder="Enter username">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <div class="input-field">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter password">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Login</button>
+                <button type="button" id="guest-btn" class="reset-btn" style="width: 100%; margin-top: 1rem; padding: 1rem; border-radius: 10px; font-size: 1.1rem; font-weight: 600; border-color: #38bdf8; color: #38bdf8;">Continue as Guest</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <p style="color: #94a3b8; font-size: 0.9rem;">Don't have an account? <a href="signup.html" style="color: var(--primary); text-decoration: none;">Sign up here</a></p>
+            </div>
+        </div>
+    </main>
+    <script src="static/js/login.js"></script>
+</body>
+</html>

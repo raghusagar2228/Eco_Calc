@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCalc - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/style.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 5vh;
+        }
+        .error-message {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container login-container">
+        <div class="glass-card">
+            <header class="header" style="margin-bottom: 1.5rem;">
+                <h1 style="font-size: 2.5rem;">EcoCalc</h1>
+                <p>Create your account</p>
+            </header>
+
+            <div id="error-box" class="error-message hidden"></div>
+
+            <form id="signup-form">
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <div class="input-field">
+                        <label for="username">Choose a Username</label>
+                        <input type="text" id="username" name="username" required placeholder="e.g. green_hero">
+                    </div>
+                </div>
+                
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <div class="input-field">
+                        <label for="password">Choose a Password</label>
+                        <input type="password" id="password" name="password" required placeholder="At least 4 characters">
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <p style="color: #94a3b8; font-size: 0.9rem;">Already have an account? <a href="login.html" style="color: var(--primary); text-decoration: none;">Login here</a></p>
+            </div>
+        </div>
+    </main>
+    <script src="static/js/signup.js"></script>
+</body>
+</html>
